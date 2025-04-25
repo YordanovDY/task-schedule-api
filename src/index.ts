@@ -1,11 +1,8 @@
-import express from 'express';
+import expressInit from './config/app-config';
 
-const PORT = 3000;
 
-const app = express();
+const app = expressInit();
 
 app.get('/test', (req, res) => {
     res.json({ works: true });
 })
-
-app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
