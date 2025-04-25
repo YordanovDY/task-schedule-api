@@ -12,3 +12,11 @@ export async function createTask(req: Request, res: Response) {
         res.json({ message: 'Internal Server Error', status: 500 });
     }
 }
+
+export function getDailyTasks(req: Request, res: Response) {
+
+}
+
+export function getMonthlyTasks(req: Request, res: Response) {
+
+}

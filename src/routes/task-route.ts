@@ -4,4 +4,7 @@ import { createTask, getDailyTasks, getMonthlyTasks } from "../controllers/task-
 const taskRouter = Router();
 
 taskRouter.post('/', createTask);
+taskRouter.get('/daily', getDailyTasks);
+taskRouter.get('/monthly', getMonthlyTasks);
+
 export default taskRouter;
