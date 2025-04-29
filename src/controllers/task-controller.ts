@@ -13,7 +13,6 @@ export async function createTask(req: Request, res: Response) {
     }
 }
 
-export function getDailyTasks(req: Request, res: Response) {
 
 }
 
