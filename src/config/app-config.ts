@@ -1,5 +1,6 @@
 import express, { Application } from 'express';
 import { errorsMiddleware } from '../middlewares/errors-middleware';
+import cors from 'cors';
 
 export default function expressInit(): Application {
     const PORT = 3000;
@@ -7,6 +8,7 @@ export default function expressInit(): Application {
 
     app.use(express.json());
     app.use(errorsMiddleware);
+    app.use(cors());
 
     // TODO: Allow CORS Requests
 
