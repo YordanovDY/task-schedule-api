@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import taskService from "../services/task-service";
 import CreateTaskDto from "../dtos/CreateTask.dto";
 import { getValidationError } from "../utils/error-util";
+import GetPeriodDto from "../dtos/GetTasks.dto";
+import { isValidPeriod } from "../utils/date-util";
 
 export async function createTask(req: Request<{}, {}, CreateTaskDto>, res: Response) {
     const { date, category, priority, description } = req.body
@@ -27,6 +29,22 @@ export async function createTask(req: Request<{}, {}, CreateTaskDto>, res: Respo
     }
 }
 
-export function getMonthlyTasks(req: Request, res: Response) {
+export async function getMonthlyTasks(req: Request<GetPeriodDto>, res: Response) {
+    const { period } = req.params;  // 2025-05
+    const isValid = isValidPeriod(period);
 
+    if (!isValid) {
+        res.errors.badRequest('Invalid period!');
+        return;
+    }
+
+    const [year, month] = period.split('-');
+
+    try {
+        const result = await taskService.getTasks(Number(year), Number(month));
+        res.json(result);
+
+    } catch (err) {
+        res.errors.internalServerError();
+    }
 }
