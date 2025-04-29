@@ -1,8 +1,14 @@
 import Task from "../models/Task";
-import { ITask } from "../types/task-type";
+import { Category, ITask, Priority } from "../types/task-type";
 
-function create(task: ITask) {
-    return Task.create({...task, status: 'Pending'});
+function create(date: Date, category: Category, priority: Priority, description: string) {
+    return Task.create({
+        date,
+        category,
+        priority,
+        description, 
+        status: 'Pending'
+    });
 }
 
 const taskService = {

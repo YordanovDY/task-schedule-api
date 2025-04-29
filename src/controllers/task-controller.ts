@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import taskService from "../services/task-service";
 
-export async function createTask(req: Request, res: Response) {
-    const task = req.body;
+export async function createTask(req: Request<{}, {}, CreateTaskDto>, res: Response) {
+    const { date, category, priority, description } = req.body
 
     try {
         const result = await taskService.create(task);
@@ -13,6 +13,8 @@ export async function createTask(req: Request, res: Response) {
     }
 }
 
+        const result = await taskService.create(date, category, priority, description);
+        res.status(201).json(result)
 
 }
 
