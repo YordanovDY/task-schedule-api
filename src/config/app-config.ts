@@ -10,8 +10,6 @@ export default function expressInit(): Application {
     app.use(errorsMiddleware);
     app.use(cors());
 
-    // TODO: Allow CORS Requests
-
     app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
     return app;
 }
