@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import taskService from "../services/task-service";
 import CreateTaskDto from "../dtos/CreateTask.dto";
+import { getValidationError } from "../utils/error-util";
 
 export async function createTask(req: Request<{}, {}, CreateTaskDto>, res: Response) {
     const { date, category, priority, description } = req.body
 
     try {
-        if(!date || !category || !priority || !description) {
+        if (!date || !category || !priority || !description) {
             res.errors.badRequest('All fields are required!');
             return;
         }
@@ -15,6 +16,13 @@ export async function createTask(req: Request<{}, {}, CreateTaskDto>, res: Respo
         res.status(201).json(result)
 
     } catch (err) {
+        const validationErrorMsg = getValidationError(err);
+
+        if (validationErrorMsg) {
+            res.errors.badRequest(validationErrorMsg);
+            return;
+        }
+
         res.errors.internalServerError();
     }
 }
