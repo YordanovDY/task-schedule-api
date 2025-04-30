@@ -4,6 +4,7 @@ import CreateTaskDto from "../dtos/CreateTask.dto";
 import { getValidationError } from "../utils/error-util";
 import GetPeriodDto from "../dtos/GetTasks.dto";
 import { isValidPeriod } from "../utils/date-util";
+import throttlingUtil from "../utils/throttling-util";
 
 export async function createTask(req: Request<{}, {}, CreateTaskDto>, res: Response) {
     const { date, category, priority, description } = req.body
@@ -42,6 +43,7 @@ export async function getMonthlyTasks(req: Request<GetPeriodDto>, res: Response)
 
     try {
         const result = await taskService.getTasks(Number(year), Number(month));
+        await throttlingUtil();
         res.json(result);
 
     } catch (err) {
