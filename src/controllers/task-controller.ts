@@ -16,6 +16,7 @@ export async function createTask(req: Request<{}, {}, CreateTaskDto>, res: Respo
         }
 
         const result = await taskService.create(date, category, priority, description);
+        await throttlingUtil();     // ! TESTING
         res.status(201).json(result)
 
     } catch (err) {
@@ -45,7 +46,7 @@ export async function getMonthlyTasks(req: Request<GetPeriodDto>, res: Response)
 
     try {
         const result = await taskService.getTasks(Number(year), Number(month));
-        await throttlingUtil();
+        await throttlingUtil();     // ! TESTING
         res.json(result);
 
     } catch (err) {
