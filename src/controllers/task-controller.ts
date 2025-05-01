@@ -22,10 +22,12 @@ export async function createTask(req: Request<{}, {}, CreateTaskDto>, res: Respo
         const validationErrorMsg = getValidationError(err);
 
         if (validationErrorMsg) {
+            console.error(err);
             res.errors.badRequest(validationErrorMsg);
             return;
         }
 
+        console.error(err);
         res.errors.internalServerError();
     }
 }
