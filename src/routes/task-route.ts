@@ -1,9 +1,14 @@
 import { Router } from "express";
-import { createTask, getMonthlyTasks } from "../controllers/task-controller";
+import { createTask, getMonthlyTasks, updateStatus } from "../controllers/task-controller";
 
 const taskRouter = Router();
 
-taskRouter.post('/', createTask);
 taskRouter.get('/month/:period', getMonthlyTasks);
+taskRouter.post('/', createTask);
+
+taskRouter.put('/status/:taskId', updateStatus);
+// taskRouter.put('/data/:taskId');
+
+// taskRouter.delete('/:taskId');
 
 export default taskRouter;

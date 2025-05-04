@@ -1,5 +1,5 @@
 import Task from "../models/Task";
-import { Category, Priority } from "../types/task-type";
+import { Category, Priority, Status } from "../types/task-type";
 import { getMonthRange } from "../utils/date-util";
 
 function create(date: Date, category: Category, priority: Priority, description: string) {
@@ -18,9 +18,14 @@ function getTasks(year: number, month: number) {
     return Task.find({ date: { $gte: start, $lte: end } });
 }
 
+function uStatus(taskId: string, status: Status) {
+    return Task.findByIdAndUpdate(taskId, { status: status }, { runValidators: true, new: true });
+}
+
 const taskService = {
     create,
-    getTasks
+    getTasks,
+    uStatus
 }
 
 export default taskService;
