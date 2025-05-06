@@ -22,10 +22,15 @@ function uStatus(taskId: string, status: Status) {
     return Task.findByIdAndUpdate(taskId, { status: status }, { runValidators: true, new: true });
 }
 
+function del(taskId: string) {
+    return Task.findByIdAndDelete(taskId);
+}
+
 const taskService = {
     create,
     getTasks,
-    uStatus
+    uStatus,
+    del
 }
 
 export default taskService;
